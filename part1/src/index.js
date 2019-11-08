@@ -1,27 +1,26 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-
-
-const Display =({counter}) => <div>The Count is: {counter}</div> 
-
-const Button = ({onClick,text}) => ( <button onClick={onClick}> {text} </button> )
-
 const App = (props) => {
-  const [ counter,setCounter ] = useState(0)
-
-//  const increaseByOne = () => setCounter (counter +1 )
-//  const setToZero = () => setCounter(0)
-  const setToValue = (value) => () => {setCounter(value)}
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
 
   return (
     <div>
-      <Display counter= {counter} />
-      <Button onClick=  {setToValue(counter + 1)} text ="Add"  />
-      <Button onClick=  {setToValue(0)} text ="Zero"  />
+      <div>
+        {left}
+        <button onClick={() => setLeft(left + 1)}>
+          left
+        </button>
+        <button onClick={() => setRight(right + 1)}>
+          right
+        </button>
+        {right}
+      </div>
     </div>
   )
 }
+
 ReactDOM.render(
   <App />, 
   document.getElementById('root')
