@@ -1,12 +1,26 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+
+const Button =(props) => {
+    return <div>
+                <button onClick = {props.onClick}> {props.text}</button>
+            </div>
+}
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
 
+  const handleRandomClick = () => {
+      let index =Math.floor((Math.random() * 6) )
+      console.log(index)
+    setSelected(index)
+}
+
   return (
     <div>
-      {props.anecdotes[selected]}
+        {anecdotes[selected]}
+        <Button onClick= {handleRandomClick} text="next anecdote"/>
     </div>
   )
 }
@@ -21,6 +35,6 @@ const anecdotes = [
 ]
 
 ReactDOM.render(
-  <App anecdotes={anecdotes} />,
+  <App />,
   document.getElementById('root')
 )
