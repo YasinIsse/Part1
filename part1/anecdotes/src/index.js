@@ -2,25 +2,54 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 
+const Diplay = (props) => {
+  return anecdotes[props.index]
+}
+
 const Button =(props) => {
-    return <div>
-                <button onClick = {props.onClick}> {props.text}</button>
-            </div>
+    return (<button onClick = {props.onClick}> {props.text}</button>)
+}
+
+const Votes = (props) => {
+    return <div>has {props.value} votes </div>
 }
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
-
+  const [points, setPoints]  = useState(Array.apply(null, new Array(6)).map(Number.prototype.valueOf,0))
+  
   const handleRandomClick = () => {
-      let index =Math.floor((Math.random() * 6) )
-      console.log(index)
-    setSelected(index)
-}
+      setSelected(Math.floor((Math.random() * 6) ))
+    }
+  const handleVotelick = () => {
+    const newArray = [...points]
+    newArray[selected]+=1
+    setPoints(newArray)
+  }
+
+  const maxiumVotes = () => {
+    let maximum = points[0]
+    let maximumIndex = 0
+    for (let i = 1; i < points.length; i++) {
+        if (points[i] > maximum) {
+          maximum = points[i]  
+          maximumIndex = i
+        }
+    }
+    return maximumIndex;
+  }
 
   return (
     <div>
-        {anecdotes[selected]}
+        <h1>Anecdote of the day</h1>
+        <Diplay index = {selected}/>
+        <Votes value={points[selected]}/>
+        <div>
+        <Button onClick= {handleVotelick} text="vote"/>
         <Button onClick= {handleRandomClick} text="next anecdote"/>
+        </div>
+        <h1>Anecdote with most votes</h1>
+        <Diplay index = {maxiumVotes()}/>
     </div>
   )
 }
